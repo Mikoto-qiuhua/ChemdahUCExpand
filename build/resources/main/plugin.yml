@@ -1,0 +1,10 @@
+name: ChemdahUCExpand
+main: org.qiuhua.chemdahucexpand.Main
+version: 1.0.0
+api-version: 1.13
+depend:
+softdepend:
+commands:
+  ChemdahUCExpand:
+    description: "主指令"
+    usage: /<command>

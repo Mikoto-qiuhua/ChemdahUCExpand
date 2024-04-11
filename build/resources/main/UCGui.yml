@@ -1,0 +1,1040 @@
+Gui:
+  Type: "Inventory"
+  Position: 4
+  X: 50
+  Y: 0
+  Width: 362
+  Height: 1000
+  Transparent: 230
+  Color: "ece5d8"
+  Image:
+  Mask: false
+
+ContentList:
+  #侧边栏
+  Sidebar:
+    Type: "Image"
+    Position: 4
+    X: 0
+    Y: 0
+    Width: 50
+    Height: 1000
+    Color: "4b5468"
+    Transparent: 230
+
+  #退出按钮
+  Esc:
+    Type: Button
+    Position: 4
+    X: 13
+    Y: 200
+    Image: 'gui/button/quit.png'
+    Color: 'FFFFFF'
+    HoverColor: 'ffffff'
+    ClickColor: 'ffffff'
+    Transparent: 255
+    HoverTransparent: 150
+    ClickTransparent: 150
+    Width: 25
+    Height: 25
+    TextColor: '00CACA'
+    TextSize: 1
+    Close: true
+  #角色
+  Role:
+    Type: Button
+    Position: 4
+    X: 12
+    Y: -150
+    Image: 'gui/button/Role.png'
+    Color: 'FFFFFF'
+    HoverColor: 'ffffff'
+    ClickColor: 'ffffff'
+    Transparent: 255
+    HoverTransparent: 150
+    ClickTransparent: 150
+    Width: 30
+    Height: 30
+    Text: ''
+    TextColor: '00CACA'
+    TextSize: 1
+    Command: '[player]: GenshinRoleSystem gui'
+  #背包
+  Backpack:
+    Type: Button
+    Position: 4
+    X: 12
+    Y: -110
+    Image: 'gui/button/Backpack.png'
+    Color: 'FFFFFF'
+    HoverColor: 'ffffff'
+    ClickColor: 'ffffff'
+    Transparent: 255
+    HoverTransparent: 150
+    ClickTransparent: 150
+    Width: 30
+    Height: 30
+    Text: ''
+    TextColor: '00CACA'
+    TextSize: 1
+    Command: '[player]: qiuhuaitemspace open 武器仓库'
+  #强化
+  strengthen:
+    Type: Button
+    Position: 4
+    X: 12
+    Y: -70
+    Image: 'gui/button/strengthen5.png'
+    Color: 'FFFFFF'
+    HoverColor: 'ffffff'
+    ClickColor: 'ffffff'
+    Transparent: 255
+    HoverTransparent: 150
+    ClickTransparent: 150
+    Width: 30
+    Height: 30
+    Text: ''
+    TextColor: '00CACA'
+    TextSize: 1
+    Command: '[player]: genshinstrengthen artifacts'
+  #地图
+  map:
+    Type: Button
+    Position: 4
+    X: 12
+    Y: -30
+    Image: 'gui/button/map.png'
+    Color: 'FFFFFF'
+    HoverColor: 'ffffff'
+    ClickColor: 'ffffff'
+    Transparent: 255
+    HoverTransparent: 150
+    ClickTransparent: 150
+    Width: 30
+    Height: 30
+    Text: ''
+    TextColor: '00CACA'
+    TextSize: 1
+    Command: '[console]: trmenu open 蒙德区域 %player%'
+  #任务
+  quset:
+    Type: Button
+    Position: 4
+    X: 12
+    Y: 10
+    Image: 'gui/button/quset.png'
+    Color: 'FFFFFF'
+    HoverColor: 'ffffff'
+    ClickColor: 'ffffff'
+    Transparent: 255
+    HoverTransparent: 150
+    ClickTransparent: 150
+    Width: 30
+    Height: 30
+    Text: ''
+    TextColor: '00CACA'
+    TextSize: 1
+    Command: '[console]: chemdah quest ui %player% 全部任务'
+
+
+
+
+  #玩家信息卡片
+  Avatarbox:
+    Type: "Image"
+    Position: 5
+    X: 26
+    Y: -155
+    Width: 311
+    Height: 157
+    Color: "ffffff"
+    Transparent: 255
+    Image: "gui/picture/Playerbackgroundcard.png"
+  #玩家头颅框
+  PlayerHead1:
+    Type: "Image"
+    Position: 5
+    X: -70
+    Y: -160
+    Width: 75
+    Height: 75
+    Image: "gui/picture/avatar.png"
+    Color: "ffffff"
+    Transparent: 255
+  #玩家头颅
+  PlayerHead2:
+    Type: "Image"
+    Position: 5
+    X: -70
+    Y: -161
+    Width: 60
+    Height: 60
+    Image: "https://minotar.net/avatar/{player_self_uuid}"
+    Color: "ffffff"
+    Transparent: 255
+  #玩家UUID
+  UUID:
+    Type: "Image"
+    Position: 5
+    X: 25
+    Y: -85
+    Width: 250
+    Height: 8
+    Image: "gui/picture/picture3.png"
+    Color: "ffffff"
+    Transparent: 255
+  #玩家UUID
+  UUIDText:
+    Type: "Text"
+    Position: 5
+    X: 25
+    Y: -90
+    Text:
+      - '§0{player_self_uuid}'
+    TextSize: '1'
+    Space: 18
+    TextColor: "ffffff"
+  #玩家名字
+  PlayerNameImage:
+    Type: "Image"
+    Position: 5
+    X: 70
+    Y: -185
+    Width: 176
+    Height: 20
+    Image: "gui/picture/picture1.png"
+    Color: "ffffff"
+    Transparent: 255
+  #玩家名字
+  PlayerName:
+    Type: "Text"
+    Position: 4
+    X: 180
+    Y: -183
+    Text:
+      - '{player_self_name}'
+    TextSize: '1.5'
+    Space: 18
+    TextColor: "ffffff"
+
+  #玩家冒险等级
+  PlayerLevelImage:
+    Type: "Image"
+    Position: 5
+    X: 70
+    Y: -160
+    Width: 176
+    Height: 11
+    Image: "gui/picture/picture2.png"
+    Color: "ffffff"
+    Transparent: 255
+
+  #玩家冒险等级
+  PlayerLevel:
+    Type: "Text"
+    Position: 4
+    X: 180
+    Y: -159
+    Text:
+      - '冒险等级:               %faithl_MainLevel_level%'
+    # - '冒险等级: %faithl_MainLevel_level%'
+    TextSize: '1'
+    Space: 18
+    TextColor: "ffffff"
+
+  #玩家冒险等级经验
+  PlayerLevelExpImage:
+    Type: "Image"
+    Position: 5
+    X: 70
+    Y: -145
+    Width: 176
+    Height: 11
+    Image: "gui/picture/picture2.png"
+    Color: "ffffff"
+    Transparent: 255
+
+  #玩家冒险等级经验
+  PlayerLevelExp:
+    Type: "Text"
+    Position: 4
+    X: 180
+    Y: -144
+    Text:
+      - '冒险阅历:        %faithl_MainLevel_nowExp%'
+    TextSize: '1'
+    Space: 18
+    TextColor: "ffffff"
+
+  #玩家世界等级
+  PlayerWorldLevelImage:
+    Type: "Image"
+    Position: 5
+    X: 70
+    Y: -130
+    Width: 176
+    Height: 11
+    Image: "gui/picture/picture2.png"
+    Color: "ffffff"
+    Transparent: 255
+
+  #玩家世界等级
+  PlayerWorldLevel:
+    Type: "Text"
+    Position: 4
+    X: 180
+    Y: -129
+    Text:
+      - '世界等级:               %faithl_WorldLevel_level%'
+    # - '冒险等级: %faithl_MainLevel_level%'
+    TextSize: '1'
+    Space: 18
+    TextColor: "ffffff"
+
+
+  #玩家装备栏
+  Head:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 5
+    ItemSize: 1.1
+    X: 150
+    Y: -50
+  Chest:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 6
+    ItemSize: 1.1
+    X: 150
+    Y: -25
+  Legs:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 7
+    ItemSize: 1.1
+    X: 150
+    Y: 0
+  Feet:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 8
+    ItemSize: 1.1
+    X: 150
+    Y: 25
+  #玩家实体
+  PlayerEntity:
+    Type: Entity
+    Position: 4
+    EntityType: Player
+    EntityName: ''
+    EntitySize: 40
+    X: 200
+    Y: -10
+  OffHand:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 45
+    ItemSize: 1.1
+    X: 240
+    Y: 25
+  #玩家物品栏
+  Slot9:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 9
+    ItemSize: 1.1
+    X: 95
+    Y: 70
+  Slot10:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 10
+    ItemSize: 1.1
+    X: 120
+    Y: 70
+
+  Slot11:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 11
+    ItemSize: 1.1
+    X: 145
+    Y: 70
+  Slot12:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 12
+    ItemSize: 1.1
+    X: 170
+    Y: 70
+  Slot13:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 13
+    ItemSize: 1.1
+    X: 195
+    Y: 70
+  Slot14:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 14
+    ItemSize: 1.1
+    X: 220
+    Y: 70
+  Slot15:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 15
+    ItemSize: 1.1
+    X: 245
+    Y: 70
+  Slot16:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 16
+    ItemSize: 1.1
+    X: 270
+    Y: 70
+  Slot17:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 17
+    ItemSize: 1.1
+    X: 295
+    Y: 70
+
+  Slot18:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 18
+    ItemSize: 1.1
+    X: 95
+    Y: 95
+  Slot19:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 19
+    ItemSize: 1.1
+    X: 120
+    Y: 95
+  Slot20:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 20
+    ItemSize: 1.1
+    X: 145
+    Y: 95
+  Slot21:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 21
+    ItemSize: 1.1
+    X: 170
+    Y: 95
+  Slot22:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 22
+    ItemSize: 1.1
+    X: 195
+    Y: 95
+  Slot23:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 23
+    ItemSize: 1.1
+    X: 220
+    Y: 95
+  Slot24:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 24
+    ItemSize: 1.1
+    X: 245
+    Y: 95
+  Slot25:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 25
+    ItemSize: 1.1
+    X: 270
+    Y: 95
+  Slot26:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 26
+    ItemSize: 1.1
+    X: 295
+    Y: 95
+
+  Slot27:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 27
+    ItemSize: 1.1
+    X: 95
+    Y: 120
+  Slot28:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 28
+    ItemSize: 1.1
+    X: 120
+    Y: 120
+  Slot29:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 29
+    ItemSize: 1.1
+    X: 145
+    Y: 120
+  Slot30:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 30
+    ItemSize: 1.1
+    X: 170
+    Y: 120
+  Slot31:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 31
+    ItemSize: 1.1
+    X: 195
+    Y: 120
+  Slot32:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 32
+    ItemSize: 1.1
+    X: 220
+    Y: 120
+  Slot33:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 33
+    ItemSize: 1.1
+    X: 245
+    Y: 120
+  Slot34:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 34
+    ItemSize: 1.1
+    X: 270
+    Y: 120
+  Slot35:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 35
+    ItemSize: 1.1
+    X: 295
+    Y: 120
+
+  Slot36:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 36
+    ItemSize: 1.1
+    X: 95
+    Y: 150
+  Slot37:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 37
+    ItemSize: 1.1
+    X: 120
+    Y: 150
+  Slot38:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 38
+    ItemSize: 1.1
+    X: 145
+    Y: 150
+  Slot39:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 39
+    ItemSize: 1.1
+    X: 170
+    Y: 150
+  Slot40:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 40
+    ItemSize: 1.1
+    X: 195
+    Y: 150
+  Slot41:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 41
+    ItemSize: 1.1
+    X: 220
+    Y: 150
+  Slot42:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 42
+    ItemSize: 1.1
+    X: 245
+    Y: 150
+  Slot43:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 43
+    ItemSize: 1.1
+    X: 270
+    Y: 150
+  Slot44:
+    Hover: '常规物品'
+    Type: Slot
+    Position: 4
+    Image: "gui/picture/slot.png"
+    Width: 20
+    Height: 20
+    Color: "FFFFFF"
+    Transparent: 255
+    HoverMargin: 1
+    HoverColor: "696969"
+    HoverTransparent: 150
+    Slot: 44
+    ItemSize: 1.1
+    X: 295
+    Y: 150
+
+  PlayerInfo:
+    Type: "Image"
+    Position: 5
+    X: 25
+    Y: 175
+    Width: 300
+    Height: 21
+    Image: "gui/picture/picture2.png"
+    Color: "ffffff"
+    Transparent: 255
+  #玩家硬币
+  MoneyImage:
+    Type: "Image"
+    Position: 5
+    X: -77
+    Y: 175
+    Width: 13
+    Height: 13
+    Image: "gui/picture/picture5.png"
+    Color: "ffffff"
+    Transparent: 255
+  Money:
+    Type: "Text"
+    Position: 4
+    X: 115
+    Y: 176
+    Text:
+      - '%vault_eco_balance_fixed%'
+    TextSize: '1'
+    Space: 18
+    TextColor: "ffffff"
+  #玩家点券
+  PointImage:
+    Type: "Image"
+    Position: 5
+    X: 48
+    Y: 175
+    Width: 15
+    Height: 15
+    Image: "gui/picture/picture4.png"
+    Color: "ffffff"
+    Transparent: 255
+  Point:
+    Type: "Text"
+    Position: 4
+    X: 238
+    Y: 176
+    Text:
+      - '%playerpoints_points%'
+    TextSize: '1'
+    Space: 18
+    TextColor: "ffffff"
+
+
+  #侧边栏
+  Sidebar1:
+    Type: "Image"
+    Position: 4
+    X: 0
+    Y: 0
+    Width: 2
+    Height: 1000
+    Color: "a19785"
+    Transparent: 230
+  #侧边栏
+  Sidebar2:
+    Type: "Image"
+    Position: 4
+    X: 50
+    Y: 0
+    Width: 2
+    Height: 1000
+    Color: "a19785"
+    Transparent: 230
