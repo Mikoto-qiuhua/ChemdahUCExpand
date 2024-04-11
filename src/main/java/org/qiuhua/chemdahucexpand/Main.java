@@ -2,6 +2,7 @@ package org.qiuhua.chemdahucexpand;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.qiuhua.chemdahucexpand.Theme.ThemeUCGui;
 import org.qiuhua.chemdahucexpand.command.ChemdahUCExpandCommand;
 import org.qiuhua.chemdahucexpand.config.Tool;
 
@@ -16,6 +17,7 @@ public class Main extends JavaPlugin {
         mainPlugin = this;
         Tool.saveAllConfig();
         Tool.load();
+        new ThemeUCGui ().register("themeUCGui");
         new ChemdahUCExpandCommand().register();
     }
 

@@ -4,6 +4,9 @@ import com.daxton.unrealcore.application.UnrealCoreAPI;
 import ink.ptms.chemdah.core.conversation.PlayerReply;
 import ink.ptms.chemdah.core.conversation.Session;
 import ink.ptms.chemdah.core.conversation.theme.Theme;
+import ink.ptms.chemdah.taboolib.module.configuration.ConfigFile;
+import ink.ptms.chemdah.taboolib.module.configuration.Configuration;
+import ink.ptms.chemdah.taboolib.module.configuration.Type;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -23,7 +26,7 @@ public class ThemeUCGui extends Theme<ThemeUCGuiSettings> {
     @Override
     public ThemeUCGuiSettings createConfig() {
 
-        return null;
+        return new ThemeUCGuiSettings (Configuration.Companion.loadFromOther(UCGui.getUcGui(), Type.YAML, true).getConfigurationSection("gui"));
     }
 
     /**
