@@ -65,8 +65,6 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
             ButtonModule buttonModule = this.playerReplyButton.copy();
             buttonModule.setModuleID("Reply_" + i);
             buttonModule.setText(reply.build(session));
-            UUID rf = reply.getRid();
-            player.sendMessage(rf);
             if(i != 0){
                 if (y >= 0) {
                     buttonModule.setY("(" + height + spacingY + ")*" + i + "+" + y);
@@ -80,13 +78,9 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
                 }
             }
             player.sendMessage(playerReplyList.get(i).getRid());
-            int finalI = i;
             buttonModule.onButtonClick((buttonModule2, mouseButtonType, mouseActionType) -> {
                 if (mouseButtonType == MouseButtonType.Left && mouseActionType == MouseActionType.Off) {
-//                    player.performCommand("/session reply " + playerReplyList.get(finalI).getUniqueId());
-                    player.sendMessage(rf);
-//                    ChemdahGUIContainer chemdahGUIContainer = new ChemdahGUIContainer("UCGui", UCGui.getUCGui());
-//                    UnrealCoreAPI.openGUI(player, chemdahGUIContainer);
+                    player.performCommand("/session reply " + reply.getRid());
                 }
             });
             this.addModule(buttonModule);
