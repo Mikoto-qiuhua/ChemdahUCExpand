@@ -2,6 +2,7 @@ package org.qiuhua.chemdahucexpand.config;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.qiuhua.chemdahucexpand.Main;
+import org.qiuhua.chemdahucexpand.Theme.ThemeUCGui;
 
 import java.io.File;
 

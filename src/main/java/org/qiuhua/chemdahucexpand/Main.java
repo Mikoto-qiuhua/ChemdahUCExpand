@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.qiuhua.chemdahucexpand.Theme.ThemeUCGui;
 import org.qiuhua.chemdahucexpand.command.ChemdahUCExpandCommand;
 import org.qiuhua.chemdahucexpand.config.Tool;
+import org.qiuhua.chemdahucexpand.listener.UnrealListener;
 
 public class Main extends JavaPlugin {
     private static Main mainPlugin;
@@ -17,8 +18,9 @@ public class Main extends JavaPlugin {
         mainPlugin = this;
         Tool.saveAllConfig();
         Tool.load();
-        new ThemeUCGui ().register("themeUCGui");
+        new ThemeUCGui().register("UCGui");
         new ChemdahUCExpandCommand().register();
+        Bukkit.getPluginManager().registerEvents(new UnrealListener(), this);
     }
 
 

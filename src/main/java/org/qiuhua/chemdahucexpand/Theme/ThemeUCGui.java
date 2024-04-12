@@ -4,20 +4,15 @@ import com.daxton.unrealcore.application.UnrealCoreAPI;
 import ink.ptms.chemdah.core.conversation.PlayerReply;
 import ink.ptms.chemdah.core.conversation.Session;
 import ink.ptms.chemdah.core.conversation.theme.Theme;
-import ink.ptms.chemdah.taboolib.module.configuration.ConfigFile;
 import ink.ptms.chemdah.taboolib.module.configuration.Configuration;
 import ink.ptms.chemdah.taboolib.module.configuration.Type;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.qiuhua.chemdahucexpand.Main;
+import org.qiuhua.chemdahucexpand.config.Config;
 import org.qiuhua.chemdahucexpand.config.UCGui;
-import org.qiuhua.chemdahucexpand.gui.UnrealGUIContainer;
+import org.qiuhua.chemdahucexpand.gui.ChemdahGUIContainer;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class ThemeUCGui extends Theme<ThemeUCGuiSettings> {
@@ -26,7 +21,7 @@ public class ThemeUCGui extends Theme<ThemeUCGuiSettings> {
     @Override
     public ThemeUCGuiSettings createConfig() {
 
-        return new ThemeUCGuiSettings (Configuration.Companion.loadFromOther(UCGui.getUcGui(), Type.YAML, true).getConfigurationSection("gui"));
+        return new ThemeUCGuiSettings (Configuration.Companion.loadFromOther(Config.getConfig(), Type.YAML, true).getConfigurationSection("Option"));
     }
 
     /**
@@ -39,22 +34,32 @@ public class ThemeUCGui extends Theme<ThemeUCGuiSettings> {
     @Override
     public CompletableFuture<Void> onDisplay(Session session, List<String> message, boolean canReply) {
         Player player = session.getPlayer();
-
-        //获取对话标题
-        session.getConversation().getOption().getTitle();
-
         //打开一个虚幻核心的gui
-        UnrealGUIContainer unrealGUIContainer = new UnrealGUIContainer("CUCGui", UCGui.getUcGui());
-        UnrealCoreAPI.inst(player).getGUIHelper().openCoreGUI(unrealGUIContainer);
-
-
-        //获取玩家可回复列表
-        ArrayList<PlayerReply> playerReplyList = session.getPlayerReplyForDisplay();
-        //回复指定选项 这里就要看玩家点了哪个选项了
-        //获取PlayerReply的uuid 然后使用指令进行回复   指令回复无需我们判断这个回复的条件
-        UUID rid = session.getPlayerReplyForDisplay().get(0).getRid();
-        player.performCommand("session reply" + rid);
-
-        return null;
+        ChemdahGUIContainer chemdahGUIContainer = new ChemdahGUIContainer("UCGui", UCGui.getUCGui());
+        chemdahGUIContainer.setMessage(message);
+        chemdahGUIContainer.setTitle(session.getConversation().getOption().getTitle());
+        chemdahGUIContainer.setPlayerReplyList(session, canReply, Config.getStr("Option.spacingX"), Config.getStr("Option.spacingY"));
+        UnrealCoreAPI.openGUI(player, chemdahGUIContainer);
+        return CompletableFuture.completedFuture(null);
     }
+    /**
+     * 是否支持告别
+     * 即结束对话时使用 talk 语句创建没有回复的对话信息
+     * 在原版 chat 对话模式中支持告别，而 chest 不支持（会被转换为 Holographic 信息）
+     */
+    @Override
+    public boolean allowFarewell() {
+        return true;
+    }
+
+    /**
+     * 会话结束时，目前未被使用
+     */
+    public CompletableFuture<Void> onClose(Session session, boolean canReply) {
+        CompletableFuture<Void> future = new CompletableFuture<>();
+        // TODO: 实现会话结束时的逻辑
+        future.complete(null);
+        return future;
+    }
+
 }

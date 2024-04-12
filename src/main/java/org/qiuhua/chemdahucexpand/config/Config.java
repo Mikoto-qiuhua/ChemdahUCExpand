@@ -26,8 +26,7 @@ public class Config {
 
 
 
-
-
-
-
+    public static FileConfiguration getConfig() {
+        return config;
+    }
 }

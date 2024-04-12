@@ -4,8 +4,14 @@ import ink.ptms.chemdah.core.conversation.theme.ThemeSettings;
 import ink.ptms.chemdah.taboolib.library.configuration.ConfigurationSection;
 
 public class ThemeUCGuiSettings extends ThemeSettings {
-    public ThemeUCGuiSettings(ConfigurationSection root) {
+    public final String spacingX;
+    public final String spacingY;
 
+
+    public ThemeUCGuiSettings(ConfigurationSection root) {
         super(root);
+        this.spacingX = root.getString("spacingX");
+        this.spacingY = root.getString("spacingY");
     }
+
 }
