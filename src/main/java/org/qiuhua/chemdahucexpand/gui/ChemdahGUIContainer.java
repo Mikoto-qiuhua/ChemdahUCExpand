@@ -27,22 +27,27 @@ import java.util.concurrent.CompletableFuture;
 
 public class ChemdahGUIContainer extends UnrealCoreGUI {
 
+
+    //本次对话的连接
     private Session session;
-
-
+    //是否是能够回复  不能回复就是最后一句话
+    private Boolean canReply;
+    //本次对话主要消息
+    private List<String> message;
+    //回复选项的X间隔
     private final String spacingX = Config.getStr("Option.spacingX");
-
+    //回复选项的Y间隔
     private final String spacingY = Config.getStr("Option.spacingY");
-
+    //如果是最后一句对话 延迟多少tick关闭对话
     private final int talkCloseDelay = Config.getInt("Option.talkCloseDelay");
-
+    //点击回复按钮的音效
     private final Sound sound = Sound.valueOf(Config.getStr("Option.sound.name"));
-
     private final Float volume = (float) Config.getInt("Option.sound.v");
-
     private final Float pitch = (float) Config.getInt("Option.sound.p");
     //回复按钮
     private final ButtonModule playerReplyButton = (ButtonModule)this.getModule("ReplyButton").copy();
+    //文本是否打印完成
+    private Boolean stopAnimation;
 
 
     public ChemdahGUIContainer(String guiName, FileConfiguration fileConfiguration) {
@@ -50,22 +55,21 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
         this.removeModule("ReplyButton");
     }
 
-    public void setTitle(String title) {
+    //设置参数
+    public void setOption(Session session, List<String> message, Boolean canReply){
+        this.session = session;
+        this.message = message;
+        this.canReply = canReply;
+        //设置本次对话的标题
         TextModule titleModule = (TextModule)this.getModule(new String[]{"Title"});
         if (titleModule != null) {
-            titleModule.setText(title);
+            titleModule.setText(session.getConversation().getOption().getTitle());
         }
     }
 
-    public void setMessage(List<String> message) {
-        TextModule messageModule = (TextModule)this.getModule(new String[]{"Message"});
-        if(messageModule != null) {
-            messageModule.setText(message);
-        }
-    }
 
-    public void setPlayerReplyList(Session session, Boolean canReply){
-        this.session = session;
+    //设置回复项
+    public void setPlayerReplyList(){
         int height = this.playerReplyButton.getHeight();
         int width = this.playerReplyButton.getWidth();
         int x = this.playerReplyButton.getX();
@@ -98,29 +102,37 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
             });
             this.addModule(buttonModule);
         }
-//        如果是最后一句回复 那就延迟关闭界面
-        if(!canReply){
-            Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getMainPlugin(), () -> {
-                Bukkit.getScheduler().runTask(Main.getMainPlugin(), this::close);
-            }, talkCloseDelay);
-
-        }
     }
 
 
-
-    //界面打开时自动触发
-    public void opening() {
-
+    //设置文本组件
+    public void setMessage(){
         //获取消息组件并且设置文本
         TextModule messageModule = (TextModule)this.getModule(new String[]{"Message"});
         if(messageModule != null) {
             messageModule.setText(message);
         }
-        //刷新界面
+    }
+
+
+    //界面打开时自动触发
+    public void opening() {
+        //设置文本
+        this.setMessage();
+        //如果文本对话完成就设置回复选项
+        this.setPlayerReplyList();
+        //刷新界面  只要有组件变动 就要刷新界面
         this.upDate();
+        //如果是最后一句回复 那就延迟关闭界面
+        if(!canReply){
+            Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getMainPlugin(), () -> {
+                Bukkit.getScheduler().runTask(Main.getMainPlugin(), this::close);
+            }, talkCloseDelay);
+        }
 
     }
+
+
 
 
     public void close() {

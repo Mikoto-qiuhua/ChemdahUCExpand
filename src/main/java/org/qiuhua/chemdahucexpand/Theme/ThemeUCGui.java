@@ -40,9 +40,7 @@ public class ThemeUCGui extends Theme<ThemeUCGuiSettings> {
         Player player = session.getPlayer();
         //打开一个虚幻核心的gui
         ChemdahGUIContainer chemdahGUIContainer = new ChemdahGUIContainer(UUID.randomUUID().toString(), UCGui.getUCGui());
-        chemdahGUIContainer.setMessage(message);
-        chemdahGUIContainer.setTitle(session.getConversation().getOption().getTitle());
-        chemdahGUIContainer.setPlayerReplyList(session, canReply);
+        chemdahGUIContainer.setOption(session,message,canReply);
         UnrealCoreAPI.openGUI(player, chemdahGUIContainer);
         return CompletableFuture.completedFuture(null);
     }
