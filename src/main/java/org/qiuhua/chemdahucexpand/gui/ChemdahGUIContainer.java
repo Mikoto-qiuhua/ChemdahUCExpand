@@ -1,29 +1,25 @@
 package org.qiuhua.chemdahucexpand.gui;
 
-import com.daxton.unrealcore.application.UnrealCoreAPI;
-import com.daxton.unrealcore.application.method.SchedulerRunnable;
 import com.daxton.unrealcore.common.type.MouseActionType;
 import com.daxton.unrealcore.common.type.MouseButtonType;
 import com.daxton.unrealcore.display.content.gui.UnrealCoreGUI;
 import com.daxton.unrealcore.display.content.module.control.ButtonModule;
-import com.daxton.unrealcore.display.content.module.control.ContainerModule;
 import com.daxton.unrealcore.display.content.module.display.TextModule;
 import ink.ptms.chemdah.core.conversation.PlayerReply;
 import ink.ptms.chemdah.core.conversation.Session;
-import javafx.print.Printer;
-import javafx.scene.layout.Priority;
-import me.clip.placeholderapi.PlaceholderAPI;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
-import org.checkerframework.checker.units.qual.C;
+import org.bukkit.scheduler.BukkitTask;
 import org.qiuhua.chemdahucexpand.Main;
 import org.qiuhua.chemdahucexpand.config.Config;
-import org.qiuhua.chemdahucexpand.config.UCGui;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 public class ChemdahGUIContainer extends UnrealCoreGUI {
 
@@ -105,8 +101,16 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
     }
 
 
-    //设置文本组件
-    public void setMessage(){
+//    //设置文本组件
+//    public void setMessage(){
+//        //获取消息组件并且设置文本
+//        TextModule messageModule = (TextModule)this.getModule(new String[]{"Message"});
+//        if(messageModule != null) {
+//            messageModule.setText(message);
+//        }
+//    }
+
+    public void setMessage(List<String> message){
         //获取消息组件并且设置文本
         TextModule messageModule = (TextModule)this.getModule(new String[]{"Message"});
         if(messageModule != null) {
@@ -117,12 +121,12 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
 
     //界面打开时自动触发
     public void opening() {
-        //设置文本
-        this.setMessage();
+        typeWriter(0,1000L, (unused) -> {
+
+        });
         //如果文本对话完成就设置回复选项
         this.setPlayerReplyList();
-        //刷新界面  只要有组件变动 就要刷新界面
-        this.upDate();
+
         //如果是最后一句回复 那就延迟关闭界面
         if(!canReply){
             Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getMainPlugin(), () -> {
@@ -131,6 +135,47 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
         }
 
     }
+
+    /**
+     * 打字效果
+     * @param startDelay 延迟多久后开始
+     * @param period 显示间隔
+     * @param end 显示完毕后干的事
+     */
+    public void typeWriter (long startDelay, long period, Consumer<Void> end)
+    {
+        List<String> display = new ArrayList<>();
+        message.forEach((oo) -> display.add(""));
+        for (int i = 0; i < message.size(); i++)
+        {
+            char[] words = message.get(i).toCharArray();
+            final int[] j = {0};
+            int finalI = i;
+            Bukkit.getScheduler().runTaskTimerAsynchronously(Main.getMainPlugin(), (task) -> {
+
+                if (j[0] < words.length) {
+
+                    if (j[0] == 0)
+                        display.set(finalI, words[j[0]] + "_");
+                    else {
+                        display.set(finalI, display.get(finalI).replace("_", words[j[0]] + "_"));
+                    }
+
+                    j[0]++;
+                    setMessage(display);
+                    upDate();
+                }else
+                    task.cancel();
+            }, startDelay, period);
+
+        }
+
+        end.accept(null);
+
+    }
+
+
+
 
 
 
