@@ -10,11 +10,16 @@ import com.daxton.unrealcore.display.content.module.control.ContainerModule;
 import com.daxton.unrealcore.display.content.module.display.TextModule;
 import ink.ptms.chemdah.core.conversation.PlayerReply;
 import ink.ptms.chemdah.core.conversation.Session;
+import javafx.print.Printer;
+import javafx.scene.layout.Priority;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.checkerframework.checker.units.qual.C;
 import org.qiuhua.chemdahucexpand.Main;
+import org.qiuhua.chemdahucexpand.config.Config;
 import org.qiuhua.chemdahucexpand.config.UCGui;
 
 import java.util.*;
@@ -22,11 +27,20 @@ import java.util.concurrent.CompletableFuture;
 
 public class ChemdahGUIContainer extends UnrealCoreGUI {
 
-    public Map<String, String> customValue = new HashMap<>();
-    SchedulerRunnable schedulerRunnable;
+    private Session session;
 
-    public  Session session;
 
+    private final String spacingX = Config.getStr("Option.spacingX");
+
+    private final String spacingY = Config.getStr("Option.spacingY");
+
+    private final int talkCloseDelay = Config.getInt("Option.talkCloseDelay");
+
+    private final Sound sound = Sound.valueOf(Config.getStr("Option.sound.name"));
+
+    private final Float volume = (float) Config.getInt("Option.sound.v");
+
+    private final Float pitch = (float) Config.getInt("Option.sound.p");
     //回复按钮
     private final ButtonModule playerReplyButton = (ButtonModule)this.getModule("ReplyButton").copy();
 
@@ -50,16 +64,15 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
         }
     }
 
-    public void setPlayerReplyList(Session session, Boolean canReply, String spacingX, String spacingY){
+    public void setPlayerReplyList(Session session, Boolean canReply){
         this.session = session;
-        Player player = session.getPlayer();
-
-        CompletableFuture<List<PlayerReply>> replies = session.getConversation().getPlayerSide().checked(session);
-        List<PlayerReply> playerReplyList = replies.join();
         int height = this.playerReplyButton.getHeight();
         int width = this.playerReplyButton.getWidth();
         int x = this.playerReplyButton.getX();
         int y = this.playerReplyButton.getY();
+        Player player = session.getPlayer();
+        CompletableFuture<List<PlayerReply>> replies = session.getConversation().getPlayerSide().checked(session);
+        List<PlayerReply> playerReplyList = replies.join();
         for(int i = 0; i < playerReplyList.size(); ++i){
             PlayerReply reply = playerReplyList.get(i);
             ButtonModule buttonModule = this.playerReplyButton.copy();
@@ -77,63 +90,44 @@ public class ChemdahGUIContainer extends UnrealCoreGUI {
                     buttonModule.setX("(" + width + spacingX + ")*" + i + x);
                 }
             }
-            player.sendMessage(playerReplyList.get(i).getRid());
             buttonModule.onButtonClick((buttonModule2, mouseButtonType, mouseActionType) -> {
                 if (mouseButtonType == MouseButtonType.Left && mouseActionType == MouseActionType.Off) {
-                    player.performCommand("/session reply " + reply.getRid());
+                    player.playSound(player.getLocation(),sound,volume,pitch);
+                    player.chat("/session reply " + reply.getRid());
                 }
             });
             this.addModule(buttonModule);
         }
+//        如果是最后一句回复 那就延迟关闭界面
+        if(!canReply){
+            Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getMainPlugin(), () -> {
+                Bukkit.getScheduler().runTask(Main.getMainPlugin(), this::close);
+            }, talkCloseDelay);
 
-
+        }
     }
 
 
 
+    //界面打开时自动触发
     public void opening() {
-        if (Bukkit.getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
-            this.placeholderChange();
+
+        //获取消息组件并且设置文本
+        TextModule messageModule = (TextModule)this.getModule(new String[]{"Message"});
+        if(messageModule != null) {
+            messageModule.setText(message);
         }
+        //刷新界面
+        this.upDate();
 
     }
 
-    public void placeholderChange() {
-        try {
-            this.schedulerRunnable = new SchedulerRunnable() {
-                public void run() {
-                    if (ChemdahGUIContainer.this.getPlayer() == null) {
-                        this.cancel();
-                    } else {
-                        Map<String, String> customValueMap = new HashMap<>();
-                        ChemdahGUIContainer.this.customValue.forEach((content, contentChange) -> {
-                            if (ChemdahGUIContainer.this.getPlayer() == null) {
-                                this.cancel();
-                            } else {
-                                String value = PlaceholderAPI.setPlaceholders(ChemdahGUIContainer.this.getPlayer(), "%" + content + "%");
-                                customValueMap.put(contentChange, value);
-                            }
-                        });
-                        UnrealCoreAPI.setCustomValueMap(ChemdahGUIContainer.this.getPlayer(), customValueMap);
-                    }
-                }
-            };
-            this.schedulerRunnable.runTimer(Main.getMainPlugin(), 0L, 5L);
-        } catch (IllegalArgumentException var2) {
-            Main.getMainPlugin().getLogger().warning("出现错误");
-            this.schedulerRunnable.cancel();
-        }
-
-    }
 
     public void close() {
-        if (this.schedulerRunnable != null) {
-            this.schedulerRunnable.cancel();
-        }
-        this.customValue.clear();
         //这里是断开本次会话连接
         this.session.close(true);
         super.close();
     }
+
 
 }

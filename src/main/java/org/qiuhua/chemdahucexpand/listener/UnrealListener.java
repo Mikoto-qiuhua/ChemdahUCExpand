@@ -5,9 +5,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
 public class UnrealListener implements Listener {
-    @EventHandler
-    public void onPlayerGUIClose(PlayerGUICloseEvent event){
-        event.getPlayer().sendMessage("你关闭了 " + event.getGuiName());
-    }
+//    @EventHandler
+//    public void onPlayerGUIClose(PlayerGUICloseEvent event){
+//    }
 
 }

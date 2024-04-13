@@ -12,6 +12,7 @@ public class Main extends JavaPlugin {
     public static Main getMainPlugin(){
         return mainPlugin;
     }
+
     //启动时运行
     @Override
     public void onEnable(){

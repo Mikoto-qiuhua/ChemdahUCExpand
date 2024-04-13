@@ -26,6 +26,7 @@ public class Tool {
     public static void load(){
         Config.load();
         UCGui.load();
+
     }
 
 

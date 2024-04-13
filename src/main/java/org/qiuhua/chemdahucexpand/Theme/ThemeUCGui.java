@@ -1,11 +1,13 @@
 package org.qiuhua.chemdahucexpand.Theme;
 
 import com.daxton.unrealcore.application.UnrealCoreAPI;
+import com.daxton.unrealcore.display.been.module.ModuleData;
 import ink.ptms.chemdah.core.conversation.PlayerReply;
 import ink.ptms.chemdah.core.conversation.Session;
 import ink.ptms.chemdah.core.conversation.theme.Theme;
 import ink.ptms.chemdah.taboolib.module.configuration.Configuration;
 import ink.ptms.chemdah.taboolib.module.configuration.Type;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.qiuhua.chemdahucexpand.Main;
 import org.qiuhua.chemdahucexpand.config.Config;
@@ -13,6 +15,8 @@ import org.qiuhua.chemdahucexpand.config.UCGui;
 import org.qiuhua.chemdahucexpand.gui.ChemdahGUIContainer;
 
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 public class ThemeUCGui extends Theme<ThemeUCGuiSettings> {
@@ -35,10 +39,10 @@ public class ThemeUCGui extends Theme<ThemeUCGuiSettings> {
     public CompletableFuture<Void> onDisplay(Session session, List<String> message, boolean canReply) {
         Player player = session.getPlayer();
         //打开一个虚幻核心的gui
-        ChemdahGUIContainer chemdahGUIContainer = new ChemdahGUIContainer("UCGui", UCGui.getUCGui());
+        ChemdahGUIContainer chemdahGUIContainer = new ChemdahGUIContainer(UUID.randomUUID().toString(), UCGui.getUCGui());
         chemdahGUIContainer.setMessage(message);
         chemdahGUIContainer.setTitle(session.getConversation().getOption().getTitle());
-        chemdahGUIContainer.setPlayerReplyList(session, canReply, Config.getStr("Option.spacingX"), Config.getStr("Option.spacingY"));
+        chemdahGUIContainer.setPlayerReplyList(session, canReply);
         UnrealCoreAPI.openGUI(player, chemdahGUIContainer);
         return CompletableFuture.completedFuture(null);
     }
