@@ -8,6 +8,8 @@ Option:
   spacingY: "-35"
   #talk延迟关闭界面 单位tick  20tick=1秒
   talkCloseDelay: 20
+  #越低越快 1代表每1tick播放一个字符
+  messagePlaySpeed: 1
   #选回复时播放的音效
   sound:
     name: ENTITY_EXPERIENCE_ORB_PICKUP
